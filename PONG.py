@@ -4,7 +4,11 @@ import random
 import time
 pygame.init()
 screen = pygame.display.set_mode((640,480))
+<<<<<<< HEAD
 pygame.display.set_caption ('PONG')
+=======
+pygame.display.set_caption ('G')
+>>>>>>> 20c06d5ed2f1f34e8c3843fa9f9ed4d2dd69db2b
 red = (255,0,0)
 green = (0,255,0)
 blue = (0,0,255)
