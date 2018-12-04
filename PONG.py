@@ -4,7 +4,7 @@ import random
 import time
 pygame.init()
 screen = pygame.display.set_mode((640,480))
-pygame.display.set_caption ('SNOWFLAKE')
+pygame.display.set_caption ('PONG')
 red = (255,0,0)
 green = (0,255,0)
 blue = (0,0,255)
