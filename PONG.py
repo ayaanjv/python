@@ -1,10 +1,10 @@
+from pygame.locals import*
 import pygame
 import random
-from pygame.locals import*
+import time
 pygame.init()
 screen = pygame.display.set_mode((820,640))
-pygame.display.set_caption('PONG')
-pygame.display.update()
+pygame.display.set_caption ('Star Wars')
 red = (255,0,0)
 green = (0,255,0)
 blue = (0,0,255)
@@ -25,30 +25,87 @@ x=320
 y=240
 xchange=1
 ychange=1
+red_pad=200
+blue_pad=200
+blue_pad_up=0
+red_pad_up=0
+b=[]
+for circle in range (1,300,1):
+       a=[random.randint(0,820), random.randint (0,640) ]
+       b.append(a)
 while True:
-    speed=random.randint(0,2)
     pygame.display.update()
     screen.fill(black)
-    pygame.draw.rect(screen,red,(0,170,60,230))
-    pygame.draw.rect(screen,blue,(760,170,60,230))
-
+    for snowflake in b:
+        pygame.draw.circle(screen,white,snowflake, 1)
+    speed=random.randint(1,4)
+    pygame.draw.rect(screen,red,(0,red_pad,60,230))
+    pygame.draw.rect(screen,blue,(760,blue_pad,60,230))
+    pygame.draw.circle(screen,lime,(x,y),50)
+    x=x+xchange
+    y=y+ychange
+##    print('ball:',x,y,'bpad',blue_pad+100,blue_pad-100)
     for event in pygame.event.get():
         if event.type==QUIT:
             pygame.quit()
             exit()
+    if event.type == KEYDOWN:
+        if event.key==K_UP:
+            blue_pad_up=1
+        elif event.key==K_DOWN:
+            blue_pad_up=2
+        if event.key==K_w:
+            red_pad_up=1
+        elif event.key==K_s:
+            red_pad_up=2
 
-    pygame.draw.circle(screen,lime,(x,y),50)
-    x=x+xchange
-    y=y+ychange
-    if x>=770:
-        xchange=speed
-        xchange=-xchange
-    if x<=50:
-        xchange=speed
-        xchange=+xchange
+        
+    elif event.type==KEYUP:
+        if event.key==K_UP:
+            blue_pad_up=0
+        elif event.key==K_DOWN:
+            blue_pad_up=0
+        if event.key==K_w:
+            red_pad_up=0
+        elif event.key==K_s:
+            red_pad_up=0
+
+            
+    if blue_pad_up==2:
+        blue_pad=blue_pad+3
+    if blue_pad_up==1:
+        blue_pad=blue_pad-3
+
+    if red_pad_up==2:
+        red_pad=red_pad+3
+    if red_pad_up==1:
+        red_pad=red_pad-3
+
+    
+    if blue_pad <=0:
+        blue_pad=0
+    if blue_pad >=410:
+        blue_pad=410        
+
+    if red_pad <=0:
+        red_pad=0
+    if red_pad >=410:
+        red_pad=410
+        
     if y<=50:
         ychange=speed
         ychange=+ychange
     if y>=590:
         ychange=speed
         ychange=-ychange
+
+    if x == 710 and blue_pad <=y<= blue_pad+200:
+      xchange=speed
+      xchange=-xchange
+      ychange=speed
+      ychange=+ychange
+    if x == 110 and red_pad <=y<= red_pad+200:
+      xchange=speed
+      xchange=+xchange
+      ychange=speed
+      ychange=-ychange
