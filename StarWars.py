@@ -159,7 +159,7 @@ def game():
             score(str(red_points),710,-10,yellow)
             time.sleep(1)
 
-        if blue_points==3:
+        if blue_points==5:
             screen.fill(black)
             for snowflake in b:
                 pygame.draw.circle(screen,white,snowflake, 1)
@@ -176,7 +176,7 @@ def game():
             screen.fill(black)
             screen = pygame.display.set_mode((900,900))
             break
-        if red_points==3:
+        if red_points==5:
             screen.fill(black)
             for snowflake in b:
                 pygame.draw.circle(screen,white,snowflake, 1)
