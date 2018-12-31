@@ -33,7 +33,11 @@ flap=1
 ran=random.randint(100,450)
 dom=random.randint(100,450)
 dint=random.randint(100,450)
-                 
+points=0
+def score(msg,x,y,blue):
+    fontobj=pygame.font.SysFont('freesans',100)
+    msgobj=fontobj.render(msg,False,blue)
+    screen.blit(msgobj,(x,y))                
 while True:    
     pygame.display.update()
     screen.fill(sky)
@@ -44,6 +48,7 @@ while True:
     pygame.draw.rect(screen,green,(brick_three,0,80,640))
     pygame.draw.rect(screen,sky,(brick_three,dint,80,150))
     pygame.draw.circle(screen,yellow,(x,y),40)
+    score(str(points),710,-10,yellow)
     brick=brick-fly
     brick_two=brick_two-fly
     brick_three=brick_three-fly
@@ -69,6 +74,7 @@ while True:
         brick=700
         brick_two=1000
         brick_three=1300
+        points=0
         time.sleep(1)
         ran=random.randint(100,400)
         dom=random.randint(100,400)
@@ -78,6 +84,7 @@ while True:
         brick=700
         brick_two=1000
         brick_three=1300
+        points=0
         time.sleep(1)
         ran=random.randint(100,400)
         dom=random.randint(100,400)
@@ -91,3 +98,11 @@ while True:
     if brick_three==-80:
         brick_three=820
         dint=random.randint(100,450)
+
+    if x==brick+80:
+        points=points+1
+    if x==brick_two+80:
+        points=points+1
+    if x==brick_three+80:
+        points=points+1
+    
