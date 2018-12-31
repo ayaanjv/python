@@ -26,17 +26,27 @@ x=410
 y=320
 move=0
 fly=1
-brick=640
+brick=800
+brick_two=1100
+brick_three=1400
 flap=1
 ran=random.randint(100,450)
+dom=random.randint(100,450)
+dint=random.randint(100,450)
                  
 while True:    
     pygame.display.update()
     screen.fill(sky)
     pygame.draw.rect(screen,green,(brick,0,80,640))
     pygame.draw.rect(screen,sky,(brick,ran,80,150))
+    pygame.draw.rect(screen,green,(brick_two,0,80,640))
+    pygame.draw.rect(screen,sky,(brick_two,dom,80,150))
+    pygame.draw.rect(screen,green,(brick_three,0,80,640))
+    pygame.draw.rect(screen,sky,(brick_three,dint,80,150))
     pygame.draw.circle(screen,yellow,(x,y),40)
     brick=brick-fly
+    brick_two=brick_two-fly
+    brick_three=brick_three-fly
     
     for event in pygame.event.get():
         if event.type==QUIT:
@@ -56,17 +66,28 @@ while True:
     if y-40<=-2:
         time.sleep(1)
         y=320
-        brick=640
+        brick=700
+        brick_two=1000
+        brick_three=1300
         time.sleep(1)
-        ran=random.randint(0,500)
+        ran=random.randint(100,400)
+        dom=random.randint(100,400)
     if y+40 >= 642:
         time.sleep(1)
         y=320
-        brick=640
+        brick=700
+        brick_two=1000
+        brick_three=1300
         time.sleep(1)
-        ran=random.randint(0,500)
+        ran=random.randint(100,400)
+        dom=random.randint(100,400)
         
-    if brick==0:
-        brick=640
-        ran=random.randint(0,500)
-
+    if brick==-80:
+        brick=820
+        ran=random.randint(100,400)
+    if brick_two==-80:
+        brick_two=820
+        dom=random.randint(100,400)
+    if brick_three==-80:
+        brick_three=820
+        dint=random.randint(100,450)
