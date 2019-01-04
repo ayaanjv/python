@@ -29,29 +29,62 @@ fly=1
 brick=800
 brick_two=1100
 brick_three=1400
+gap=800
+gap_two=1100
+gap_three=1400
 flap=1
 ran=random.randint(100,450)
 dom=random.randint(100,450)
 dint=random.randint(100,450)
 points=0
+NO=[1,2,3,4]
+size = random.choice(NO)
+
 def score(msg,x,y,blue):
     fontobj=pygame.font.SysFont('freesans',100)
     msgobj=fontobj.render(msg,False,blue)
     screen.blit(msgobj,(x,y))                
+##def Block():#1
+##    pygame.draw.rect(screen,green,(brick,0,80,640/6))
+##    pygame.draw.rect(screen,green,(brick,640*5/6,80,640/6))
+##def pipe():#2
+##    pygame.draw.rect(screen,green,(brick,640/6,80,640/6))
+##def block():#3
+##    pygame.draw.rect(screen,green,(brick,640*2/6,80,640/6))
+##def Brick():#4
+##    pygame.draw.rect(screen,green,(brick,320,80,640/6))
+##def Pipe():#5
+##    pygame.draw.rect(screen,green,(brick,640*3/6,80,640/6))
 while True:    
     pygame.display.update()
     screen.fill(sky)
-    pygame.draw.rect(screen,green,(brick,0,80,640))
-    pygame.draw.rect(screen,sky,(brick,ran,80,150))
-    pygame.draw.rect(screen,green,(brick_two,0,80,640))
-    pygame.draw.rect(screen,sky,(brick_two,dom,80,150))
-    pygame.draw.rect(screen,green,(brick_three,0,80,640))
-    pygame.draw.rect(screen,sky,(brick_three,dint,80,150))
+    pygame.draw.rect(screen,green,(brick,0,80,640/6))
+
+##    if size == 1:
+##        Block()
+##        block()
+##        Brick()
+##        Pipe()
+##    if size == 2:
+##        Block()
+##        pipe()
+##        Brick()
+##        Pipe()
+##    if size == 3:
+##        Block()
+##        pipe()
+##        block()
+##        Pipe()
+##    if size == 4:
+##        Block()
+##        pipe()
+##        block()
+##        Brick()
     pygame.draw.circle(screen,yellow,(x,y),40)
+
     score(str(points),710,-10,yellow)
     brick=brick-fly
-    brick_two=brick_two-fly
-    brick_three=brick_three-fly
+    
     
     for event in pygame.event.get():
         if event.type==QUIT:
@@ -76,8 +109,7 @@ while True:
         brick_three=1300
         points=0
         time.sleep(1)
-        ran=random.randint(100,400)
-        dom=random.randint(100,400)
+        size = random.choice(NO)
     if y+40 >= 642:
         time.sleep(1)
         y=320
@@ -86,23 +118,18 @@ while True:
         brick_three=1300
         points=0
         time.sleep(1)
-        ran=random.randint(100,400)
-        dom=random.randint(100,400)
+        size = random.choice(NO)
         
     if brick==-80:
         brick=820
-        ran=random.randint(100,400)
-    if brick_two==-80:
-        brick_two=820
-        dom=random.randint(100,400)
-    if brick_three==-80:
-        brick_three=820
-        dint=random.randint(100,450)
+        size = random.choice(NO)
+##    if brick_two==-80:
+##        brick_two=820
+##        gap_two=820
+##        dom=random.randint(100,400)
+##    if brick_three==-80:
+##        brick_three=820
+##        gap_three=820
+##        dint=random.randint(100,450)
 
-    if x==brick+80:
-        points=points+1
-    if x==brick_two+80:
-        points=points+1
-    if x==brick_three+80:
-        points=points+1
     
