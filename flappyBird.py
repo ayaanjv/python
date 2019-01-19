@@ -2,6 +2,7 @@ from pygame.locals import*
 import pygame
 import random
 import time
+fpsclock=pygame.time.Clock()
 pygame.init()
 screen = pygame.display.set_mode((820,640))
 pygame.display.set_caption ('Flappybird')
@@ -25,57 +26,122 @@ sky = (102,255,255)
 x=410
 y=320
 move=0
-fly=1
+fly=3
 brick=800
-brick_two=1100
-brick_three=1400
-flap=1
-ran=random.randint(100,450)
-points=0 
+brick2=1100
+brick3=1400
+flap=5
+fall=6
+points=0
+Big=random.randint(1,5)
+tall=random.randint(1,5)
 size = random.randint(1,5)
-top_pipe=80
-bot_pipe=-80
 
-
-def score(msg,x,y,blue):
-    fontobj=pygame.font.SysFont('freesans',100)
-    msgobj=fontobj.render(msg,False,blue)
-    screen.blit(msgobj,(x,y))                
+gap=0
+##def score(msg,x,y,blue):
+##    fontobj=pygame.font.SysFont('freesans',100)
+##    msgobj=fontobj.render(msg,False,blue)
+##    screen.blit(msgobj,(x,y))                
+def image():
+    img=pygame.image.load('flappy1.png')
+    screen.blit(img,(x,y))
 def Block():#1
-    pygame.draw.rect(screen,green,(brick,0,80,top_pipe))
-    pygame.draw.rect(screen,green,(brick,640,80,bot_pipe))
-##def block():#2
+    img=pygame.image.load('pipe1.png')
+    screen.blit(img,(brick,-200))
+    img=pygame.image.load('pipe2.png')
+    screen.blit(img,(brick,370))
+def block():#2
+    img=pygame.image.load('pipe1.png')
+    screen.blit(img,(brick2,-200))
+    img=pygame.image.load('pipe2.png')
+    screen.blit(img,(brick2,370))
+def BLOCK():#3
+    img=pygame.image.load('pipe1.png')
+    screen.blit(img,(brick3,-200))
+    img=pygame.image.load('pipe2.png')
+    screen.blit(img,(brick3,370))
     
+
 while True:    
     pygame.display.update()
+    fpsclock.tick(50)
     screen.fill(sky)
 
-    if size == 1:
-        top_pipe=80
-        bot_pipe=-400
-        Block()
-    if size == 2:
-        top_pipe=160
-        bot_pipe=-320
-        Block()
-    if size == 3:
-        top_pipe=240
-        bot_pipe=-240
-        Block()
-    if size == 4:
-        top_pipe=320
-        bot_pipe=-160
-        Block()
-    if size == 5:
-        top_pipe=400
-        bot_pipe=-80
-        Block()
-    pygame.draw.circle(screen,yellow,(x,y),40)
-
-    score(str(points),710,-10,yellow)
+##    if size == 1:
+##        top_pipe=-800
+##        bot_pipe=1000
+##        gap=80             
+##        Block()
+##    if size == 2:
+##        top_pipe=-800
+##        bot_pipe=1000
+##        gap=160
+##        Block()
+##    if size == 3:
+##        top_pipe=-800
+##        bot_pipe=1000
+##        gap=240
+##        Block()
+##    if size == 4:
+##        top_pipe=-800
+##        bot_pipe=1000
+##        Block()
+##    if size == 5:
+##        top_pipe=-800
+##        bot_pipe=1000       
+##        Block()
+##
+##    if Big == 1:
+##        top_pipe2=80
+##        bot_pipe2=-400
+##        block()
+##    if Big == 2:
+##        top_pipe2=160
+##        bot_pipe2=-320
+##        block()
+##    if Big == 3:
+##        top_pipe2=240
+##        bot_pipe2=-240
+##        block()
+##    if Big == 4:
+##        top_pipe2=320
+##        bot_pipe2=-160
+##        block()
+##    if Big == 5:
+##        top_pipe2=400
+##        bot_pipe2=-80
+##        block()
+##
+##    if tall == 1:
+##        top_pipe3=80
+##        bot_pipe3=-400
+##        BLOCK()
+##    if tall == 2:
+##        top_pipe3=160
+##        bot_pipe3=-320
+##        BLOCK()
+##    if tall == 3:
+##        top_pipe3=240
+##        bot_pipe3=-240
+##        BLOCK()
+##    if tall == 4:
+##        top_pipe3=320
+##        bot_pipe3=-160
+##        BLOCK()
+##    if tall == 5:
+##        top_pipe3=400
+##        bot_pipe3=-80
+##        BLOCK()
+##
+    Block()
+    BLOCK()
+    block()
+    image()
+##    score(str(points),710,-10,yellow)
     brick=brick-fly
-    
-    
+    brick2=brick2-fly
+    brick3=brick3-fly
+
     for event in pygame.event.get():
         if event.type==QUIT:
             pygame.quit()
@@ -89,37 +155,36 @@ while True:
     if move==1:
         y=y-flap
     if move==0:
-        y=y+flap
+        y=y+fall
         
-    if y-40<=-2:
+    if y+9<=0:
         time.sleep(1)
         y=320
-        brick=700
-        brick_two=1000
-        brick_three=1300
+        brick=800
+        brick2=1100
+        brick3=1400
         points=0
         time.sleep(1)
-        size = random.randint(1,2)
-    if y+40 >= 642:
+        size = random.randint(1,5)
+    if y+56 >= 640:
         time.sleep(1)
         y=320
-        brick=700
-        brick_two=1000
-        brick_three=1300
+        brick=800
+        brick2=1100
+        brick3=1400
         points=0
         time.sleep(1)
-        size = random.randint(1,2)
-        
-    if brick==-80:
-        brick=820
-        size = random.randint(1,2)
-##    if brick_two==-80:
-##        brick_two=820
-##        gap_two=820
-##        dom=random.randint(100,400)
-##    if brick_three==-80:
-##        brick_three=820
-##        gap_three=820
-##        dint=random.randint(100,450)
+        size = random.randint(1,5)
+##    print (brick)   
+    if brick<=-90:
+        brick=800
+        size = random.randint(1,5)
+    if brick2<=-90:
+        brick2=820
+        Big=random.randint(1,5)
+    if brick3<=-90:
+        brick3=820
+        tall=random.randint(1,5)
 
-    
+
+
