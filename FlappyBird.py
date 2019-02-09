@@ -33,6 +33,7 @@ brick3=1500
 flap=3
 fall=4
 points=0
+gap=880
 top_pipe=240
 bot_pipe=-240
 top_pipe2=240
@@ -42,6 +43,8 @@ bot_pipe3=-240
 Big=random.randint(1,5)
 tall=random.randint(1,5)
 size = random.randint(1,5)
+pipe_y=0
+pipe_y2=640
 
 gap=0
 ##def score(msg,x,y,blue):
@@ -52,9 +55,9 @@ def image():
     img=pygame.image.load('flappy1.png')
     screen.blit(img,(x,y))
 def Block():#1
-    pygame.draw.rect(screen,green,(brick,0,80,top_pipe))
-    pygame.draw.rect(screen,green,(brick,640,80,bot_pipe))
-       
+    pygame.draw.rect(screen,green,(brick,pipe_y,80,top_pipe))
+    pygame.draw.rect(screen,green,(brick,pipe_y2,80,bot_pipe))
+    
 def block():#2
     pygame.draw.rect(screen,green,(brick2,0,80,top_pipe2))
     pygame.draw.rect(screen,green,(brick2,640,80,bot_pipe2))
@@ -79,6 +82,8 @@ while True:
         bot_pipe=-400
         gap=80             
         Block()
+               
+
     if size == 2:
         top_pipe=160
         bot_pipe=-320
@@ -92,10 +97,12 @@ while True:
     if size == 4:
         top_pipe=320
         bot_pipe=-160
+        gap=320
         Block()
     if size == 5:
         top_pipe=400
-        bot_pipe=-80   
+        bot_pipe=-80
+        gap=400
         Block()
 
     if Big == 1:
@@ -151,7 +158,9 @@ while True:
 
     for event in pygame.event.get():
         if event.type==QUIT:
-            pygame.quit()
+            pygame.quit()        
+
+    
             exit()
         elif event.type == KEYDOWN:
             if event.key==K_SPACE:
@@ -164,7 +173,7 @@ while True:
     if move==0:
         y=y+fall
         
-    if y+10<=0:
+    if y+10<=0: 
         time.sleep(1)
         y=320
         brick=800
@@ -192,6 +201,17 @@ while True:
     if brick3<=-90:
         brick3=900
         tall=random.randint(1,5)
+
+    if brick-95 <= x <= brick-15 and y in range(pipe_y,pipe_y+top_pipe) or brick-95 <= x <= brick-15 and y in range(pipe_y2+bot_pipe,pipe_y2):
+        time.sleep(1)
+        y=320
+
+        brick=800
+        brick2=1100
+        brick3=1400
+        points=0
+        time.sleep(1)
+        size = random.randint(1,5)
 
 
 
