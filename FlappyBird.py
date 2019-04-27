@@ -26,140 +26,38 @@ sky = (102,255,255)
 x=410
 y=320
 move=0
-fly=3
-brick=900
-brick2=1200
-brick3=1500
-flap=3
-fall=4
-points=0
-gap=880
-top_pipe=240
-bot_pipe=-240
-top_pipe2=240
-bot_pipe2=-240
-top_pipe3=240
-bot_pipe3=-240
-Big=random.randint(1,5)
-tall=random.randint(1,5)
-size = random.randint(1,5)
+fly=1
+flap=1
+fall=2
+Bx=800
+Bx2=1100
+Bx3=1400
 pipe_y=0
 pipe_y2=640
 pipe_y3=0
 pipe_y4=640
 pipe_y5=0
 pipe_y6=640
+topY=300
+topY2=100
+topY3=200
+point=0
 
 
-gap=0
 def score(msg,x,y,blue):
     fontobj=pygame.font.SysFont('freesans',100)
     msgobj=fontobj.render(msg,False,blue)
     screen.blit(msgobj,(x,y))                
-def image():
-    img=pygame.image.load('flappy1.png')
-    screen.blit(img,(x,y))
-def Block():#1
-    pygame.draw.rect(screen,green,(brick,pipe_y,80,top_pipe))
-    pygame.draw.rect(screen,green,(brick,pipe_y2,80,bot_pipe))
-    
-def block():#2
-    pygame.draw.rect(screen,green,(brick2,pipe_y3,80,top_pipe2))
-    pygame.draw.rect(screen,green,(brick2,pipe_y4,80,bot_pipe2))
-    
-def BLOCK():#3
-    pygame.draw.rect(screen,green,(brick3,pipe_y5,80,top_pipe3))
-    pygame.draw.rect(screen,green,(brick3,pipe_y6,80,bot_pipe3))
-
-while True:    
+while True:
     pygame.display.update()
-    fpsclock.tick(50)
     screen.fill(sky)
-##    if size == Big:
-##        Big = random.randint(1,5)
-##    if Big == tall:
-##        tall = random.randint(1,5)
-##    if tall == size:
-##        size = random.randint(1,5)
     
-    if size == 1:
-        top_pipe=80
-        bot_pipe=-400
-        gap=80             
-        Block()
-               
+    
+    bird=pygame.draw.circle(screen,yellow,(x,y),40)
+    Bx-=fly
+    Bx2-=fly
+    Bx3-=fly
 
-    if size == 2:
-        top_pipe=160
-        bot_pipe=-320
-        gap=160
-        Block()
-    if size == 3:
-        top_pipe=240
-        bot_pipe=-240
-        gap=240
-        Block()
-    if size == 4:
-        top_pipe=320
-        bot_pipe=-160
-        gap=320
-        Block()
-    if size == 5:
-        top_pipe=400
-        bot_pipe=-80
-        gap=400
-        Block()
-
-    if Big == 1:
-        top_pipe2=80
-        bot_pipe2=-400
-        block()
-    if Big == 2:
-        top_pipe2=160
-        bot_pipe2=-320
-        block()
-    if Big == 3:
-        top_pipe2=240
-        bot_pipe2=-240
-        block()
-    if Big == 4:
-        top_pipe2=320
-        bot_pipe2=-160
-        block()
-    if Big == 5:
-        top_pipe2=400
-        bot_pipe2=-80
-        block()
-
-    if tall == 1:
-        top_pipe3=80
-        bot_pipe3=-400
-        BLOCK()
-    if tall == 2:
-        top_pipe3=160
-        bot_pipe3=-320
-        BLOCK()
-    if tall == 3:
-        top_pipe3=240
-        bot_pipe3=-240
-        BLOCK()
-    if tall == 4:
-        top_pipe3=320
-        bot_pipe3=-160
-        BLOCK()
-    if tall == 5:
-        top_pipe3=400
-        bot_pipe3=-80
-        BLOCK()
-
-    Block()
-    block()
-    BLOCK()
-    image()
-    score(str(points),710,-10,blue)
-    brick=brick-fly
-    brick2=brick2-fly
-    brick3=brick3-fly
 
     for event in pygame.event.get():
         if event.type==QUIT:
@@ -170,67 +68,104 @@ while True:
         elif event.type == KEYDOWN:
             if event.key==K_SPACE:
                 move=1
-        elif event.type == KEYUP:
+        elif event.type == KEYUP:   
             if event.key==K_SPACE:
                 move=0
+#1
+    topPipe = pygame.draw.rect(screen,green,(Bx,0,70,topY))
+    botPipe = pygame.draw.rect(screen,green,(Bx,topY+200,70,600))
+#2
+    topPipe2 = pygame.draw.rect(screen,green,(Bx2,0,70,topY2))
+    botPipe2= pygame.draw.rect(screen,green,(Bx2,topY2+200,70,600))  
+#3
+    topPipe3 = pygame.draw.rect(screen,green,(Bx3,0,70,topY3))
+    botPipe3 = pygame.draw.rect(screen,green,(Bx3,topY3+200,70,600))
+    
+
+##    if Bx == -90:
+##        Bx=820
+##        topY = random.randint(1,4)*100
+##    if Bx2 == -90:
+##        Bx2=820
+##        topY2 = random.randint(1,4)*100
+##    if Bx3 == -90:
+##        Bx3=820
+##        topY3 = random.randint(1,4)*100
+
+    if Bx==820:
+       if topY == topY2:
+            topY2 = random.randint(1,4)*100
+
+    
     if move==1:
         y=y-flap
     if move==0:
         y=y+fall
         
-    if y+10<=0: 
+    if y-27<=0: 
         time.sleep(1)
         y=320
-        brick=800
-        brick2=1100
-        brick3=1400
-        points=0
+        Bx=800
+        Bx2=1100
+        Bx3=1400
+        point=0
         time.sleep(1)
         size = random.randint(1,5)
-    if y+60 >= 640:
+    if y+27>= 640:
         time.sleep(1)
         y=320
-        brick=800
-        brick2=1100
-        brick3=1400
-        points=0
+        Bx=800
+        Bx2=1100
+        Bx3=1400
+        point=0
         time.sleep(1)
         size = random.randint(1,5)   
-    if brick<=-90:
-        brick=820
-        size = random.randint(1,5)
-    if brick2<=-90:
-        brick2=820
-        Big=random.randint(1,5)
-    if brick3<=-90:
-        brick3=820
-        tall=random.randint(1,5)
-    print(pipe_y,pipe_y+top_pipe)
-
-    if brick-95 <= x <= brick+65 and y in range(pipe_y,pipe_y+top_pipe) or brick-95 <= x <= brick+15 and y in range(pipe_y2+bot_pipe,pipe_y2) or brick-15 <= x <= brick+95 and y in range(pipe_y2+bot_pipe,pipe_y2):
+    if Bx<=-90:
+        Bx=820
+        
+    if Bx2<=-90:
+        Bx2=820
+    if Bx3<=-90:
+        Bx3=820
+        
+   
+   
+    if bird.colliderect(topPipe) or bird.colliderect(botPipe):
         time.sleep(1)
         y=320
-        brick=800
-        brick2=1100
-        brick3=1400
-        points=0
+        Bx=800
+        Bx2=1100
+        Bx3=1400
+        point=0
         time.sleep(1)
         size = random.randint(1,5)
-    if brick2-95 <= x <= brick2+65 and y in range(pipe_y3,pipe_y3+top_pipe2) or brick2-95 <= x <= brick2+15 and y in range(pipe_y4+bot_pipe2,pipe_y4) or brick2-15 <= x <= brick2+95 and y in range(pipe_y4+bot_pipe2,pipe_y4):
+    if bird.colliderect(topPipe2) or bird.colliderect(botPipe2):
         time.sleep(1)
         y=320
-        brick=800
-        brick2=1100
-        brick3=1400
-        points=0
+        Bx=800
+        Bx2=1100
+        Bx3=1400
+        point=0
         time.sleep(1)
         size = random.randint(1,5)
-    if brick3-95 <= x <= brick3+65 and y in range(pipe_y5,pipe_y5+top_pipe3) or brick3-95 <= x <= brick3+15 and y in range(pipe_y6+bot_pipe3,pipe_y6) or brick3-15 <= x <= brick3+95 and y in range(pipe_y6+bot_pipe3,pipe_y6):
+    if bird.colliderect(topPipe3) or bird.colliderect(botPipe3):
         time.sleep(1)
         y=320
-        brick=800
-        brick2=1100
-        brick3=1400
-        points=0
+        Bx=800
+        Bx2=1100
+        Bx3=1400
+        point=0
         time.sleep(1)
         size = random.randint(1,5)
+   
+     
+    if Bx == 320:
+        point=point+1
+        score(str(point),710,-10,blue)
+    if Bx2 == 320:
+        point=point+1
+        score(str(point),710,-10,blue)
+    if Bx3 == 320:
+        point=point+1
+        score(str(point),710,-10,blue)
+    score(str(point),710,-10,blue)
