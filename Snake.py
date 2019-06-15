@@ -37,10 +37,17 @@ body=25
 point=0
 keep=0
 snake=[[x,y]]
+color=orange
+rainbow=[red,orange,yellow,green,blue,purple]
+hi=0
 
 def score(msg,x,y,blue):
-    fontobj=pygame.font.SysFont('freesans',100)
+    fontobj=pygame.font.SysFont('freesans',50)
     msgobj=fontobj.render(msg,False,red)
+    screen.blit(msgobj,(x,y))
+def insrtuctions(msg,x,y,blue):
+    fontobj=pygame.font.SysFont('freesans',30)
+    msgobj=fontobj.render(msg,False,white)
     screen.blit(msgobj,(x,y))                
 
 
@@ -59,15 +66,35 @@ def Snake():
     global keep
     global snake
     global screen
+    global color
+    global rainbow
+    global hi
+    game_start= True
+    while game_start:
+        fpsclock.tick(25)
+        pygame.display.update()
+        screen.fill(olive)
+        insrtuctions('Use Up,Down,Left,Right keys to move snake and eat mouse',10,10,white)
+        insrtuctions('Use R key to change color of snake',10,110,white)
+        insrtuctions("Don't touch the border or you wil die",10,210,white)
+        insrtuctions('(Press Space Bar to continue)',10,310,white)
+        for event in pygame.event.get():
+            if event.type == KEYDOWN:
+                if event.key==K_SPACE:
+                    game_start = False
+                    break
+            
     while True:
         fpsclock.tick(25)
         pygame.display.update()
         screen.fill(olive)
-        SNAKE=pygame.draw.rect(screen,orange,(x,y,25,25))
+        
+        SNAKE=pygame.draw.rect(screen,color,(x,y,25,25))
         MOUSE=pygame.draw.rect(screen,silver,(a,b,25,25))
-
+        r=random.choice(rainbow)
+    
         for s in snake:
-            pygame.draw.rect(screen,orange,(s[0],s[1],25,25))
+            pygame.draw.rect(screen,color,(s[0],s[1],25,25))
         snake.insert(0,(x,y))
         snake.pop()
        
@@ -85,7 +112,8 @@ def Snake():
                     snake_up=3
                 elif event.key==K_LEFT:
                     snake_up=4
-
+                if event.key==K_r:
+                    color=r
 
         if snake_up==1:#up
             if down == 10:
@@ -218,7 +246,12 @@ def Snake():
             body=body+25
             point=point+1
             snake.insert(0,(x,y))
-                    
-        score(str(point),710,-10,blue)
+        score('Your Score:',500,-10,blue)            
+        score(str(point),770,-10,blue)
+        if point>hi:
+            hi=point
+        score('High Score:',100,-10,blue)
+        score(str(hi),370,-10,red)
         pygame.display.update
 
+Snake()
