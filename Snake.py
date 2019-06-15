@@ -252,6 +252,6 @@ def Snake():
             hi=point
         score('High Score:',100,-10,blue)
         score(str(hi),370,-10,red)
+        
         pygame.display.update
 
-Snake()
