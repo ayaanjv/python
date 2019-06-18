@@ -32,7 +32,10 @@ def score(msg,x,y,blue):
     fontobj=pygame.font.SysFont('freesans',100)
     msgobj=fontobj.render(msg,False,blue)
     screen.blit(msgobj,(x,y))
-
+def insrtuctions(msg,x,y,blue):
+    fontobj=pygame.font.SysFont('freesans',30)
+    msgobj=fontobj.render(msg,False,white)
+    screen.blit(msgobj,(x,y))                
 def game():
     global x
     global y
@@ -58,6 +61,20 @@ def game():
     red_points=0
     blue_points=0
     screen = pygame.display.set_mode((820,640))
+    game_start= True
+    while game_start:
+        pygame.display.update()
+        for snowflake in b:
+            pygame.draw.circle(screen,white,snowflake, 1)
+        insrtuctions('Use up and down keys to make blue paddle move up and down',0,10,yellow)
+        insrtuctions('Use W and S keys to make red paddle move up and down',0,110,yellow)
+        insrtuctions("First one to five wins ",0,210,yellow)
+        insrtuctions('(Press Space Bar to continue)',0,310,yellow)
+        for event in pygame.event.get():
+            if event.type == KEYDOWN:
+                if event.key==K_SPACE:
+                    game_start = False
+                    break
     while True:
         pygame.display.update()
         screen.fill(black)
@@ -67,11 +84,11 @@ def game():
 
         speed=random.randint(2,5)
         direction=random.choice([-speed,speed])
-        pygame.draw.rect(screen,red,(0,red_pad,60,230))
-        pygame.draw.rect(screen,blue,(760,blue_pad,60,230))
-        pygame.draw.circle(screen,lime,(x,y),50)
-        score(str(blue_points),710,-10,yellow)
-        score(str(red_points),55,-10,yellow)
+        redP=pygame.draw.rect(screen,red,(0,red_pad,60,230))
+        blueP=pygame.draw.rect(screen,blue,(760,blue_pad,60,230))
+        Ball=pygame.draw.circle(screen,lime,(x,y),50)
+        score(str(blue_points),710,-10,white)
+        score(str(red_points),55,-10,white)
 
         x=x+xchange
         y=y+ychange
@@ -130,12 +147,12 @@ def game():
             ychange=speed
             ychange=-ychange
 
-        if x in range(710, 760) and y in range(blue_pad, blue_pad+200):
+        if blueP.colliderect(Ball):
           xchange=speed
           xchange=-xchange
           ychange=direction
           
-        if x+50 in range(110, 160) and y in range(red_pad, red_pad+200):
+        if redP.colliderect(Ball):
           xchange=speed
           xchange=+xchange
           ychange=direction
@@ -163,8 +180,8 @@ def game():
             screen.fill(black)
             for snowflake in b:
                 pygame.draw.circle(screen,white,snowflake, 1)
-            score(str(blue_points),710,-10,yellow)
-            score(str(red_points),55,-10,yellow)
+            score(str(blue_points),710,-10,white)
+            score(str(red_points),55,-10,white)
             pygame.draw.rect(screen,red,(0,red_pad,60,230))
             pygame.draw.rect(screen,blue,(760,blue_pad,60,230))
             pygame.display.update()
@@ -180,8 +197,8 @@ def game():
             screen.fill(black)
             for snowflake in b:
                 pygame.draw.circle(screen,white,snowflake, 1)
-            score(str(red_points),55,-10,yellow)
-            score(str(blue_points),710,-10,yellow)
+            score(str(red_points),55,-10,white)
+            score(str(blue_points),710,-10,white)
             pygame.draw.rect(screen,red,(0,red_pad,60,230))
             pygame.draw.rect(screen,blue,(760,blue_pad,60,230))
             pygame.display.update()
