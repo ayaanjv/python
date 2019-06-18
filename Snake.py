@@ -9,7 +9,7 @@ pygame.display.set_caption ('snake')
 red = (255,0,0)
 green = (0,204,0)
 blue = (0,0,255)
-orange = (204,103,0)
+orange = (255,128,0)
 white  = (255,255,255)
 black = (0,0,0)
 aqua = (0,255,255)
@@ -40,6 +40,7 @@ snake=[[x,y]]
 color=orange
 rainbow=[red,orange,yellow,green,blue,purple]
 hi=0
+
 
 def score(msg,x,y,blue):
     fontobj=pygame.font.SysFont('freesans',50)
@@ -250,8 +251,76 @@ def Snake():
         score(str(point),770,-10,blue)
         if point>hi:
             hi=point
+##            game_end=True      
+            with open('HighScore','w') as file:
+                file.write(str(point))
         score('High Score:',100,-10,blue)
         score(str(hi),370,-10,red)
         
         pygame.display.update
 
+        with open ("HighScore",'r') as file:
+            for l in file:
+                hi=l.strip()
+                hi=int(hi)
+
+    
+##    while game_end:
+##        screen.fill(olive)
+##        for event in pygame.event.get():
+##            if event.type == KEYDOWN:
+##                if event.key==K_a:
+##                    insrtuctions('a',10,310,white)
+##                if event.key==K_b:
+##                    insrtuctions('b',10,310,white)
+##                if event.key==K_c:
+##                    insrtuctions('c',10,310,white)
+##                if event.key==K_d:
+##                    insrtuctions('d',10,310,white)
+##                if event.key==K_e:
+##                    insrtuctions('e',10,310,white)
+##                if event.key==K_f:
+##                    insrtuctions('f',10,310,white)
+##                if event.key==K_g:
+##                    insrtuctions('g',10,310,white)
+##                if event.key==K_h:
+##                    insrtuctions('h',10,310,white)
+##                if event.key==K_i:
+##                    insrtuctions('i',10,310,white)
+##                if event.key==K_j:
+##                    insrtuctions('j',10,310,white)
+##                if event.key==K_k:
+##                    insrtuctions('k',10,310,white)
+##                if event.key==K_l:
+##                    insrtuctions('l',10,310,white)
+##                if event.key==K_m:
+##                    insrtuctions('m',10,310,white)
+##                if event.key==K_n:
+##                    insrtuctions('n',10,310,white)
+##                if event.key==K_o:
+##                    insrtuctions('o',10,310,white)
+##                if event.key==K_p:
+##                    insrtuctions('p',10,310,white)
+##                if event.key==K_q:
+##                    insrtuctions('q',10,310,white)
+##                if event.key==K_r:
+##                    insrtuctions('r',10,310,white)
+##                if event.key==K_s:
+##                    insrtuctions('s',10,310,white)
+##                if event.key==K_t:
+##                    insrtuctions('t',10,310,white)
+##                if event.key==K_u:
+##                    insrtuctions('u',10,310,white)
+##                if event.key==K_v:
+##                    insrtuctions('v',10,310,white)
+##                if event.key==K_w:
+##                    insrtuctions('w',10,310,white)
+##                if event.key==K_x:
+##                    insrtuctions('x',10,310,white)
+##                if event.key==K_y:
+##                    insrtuctions('y',10,310,white)
+##                if event.key==K_z:
+##                    insrtuctions('z',10,310,white)
+##
+##                        
+##
