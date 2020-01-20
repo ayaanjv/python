@@ -1,0 +1,79 @@
+import RPi.GPIO as GPIO
+import time
+GPIO.setmode(GPIO.BCM)
+pins=[3,2,14,15]
+GPIO.setup(pins,GPIO.OUT)
+
+##rf=
+##lf=
+##rb=
+##lb=
+
+def go():
+    GPIO.output([14,3],1)
+    GPIO.output([15,2],0)
+def stop():
+    GPIO.output(pins,0)
+    
+
+def rev():
+    GPIO.output([14,3],0)
+    GPIO.output([15,2],1)
+
+def right_for():
+    GPIO.output([3,2],[1,0])
+    
+def right_rev():
+    GPIO.output([3,2],[0,1])
+
+def left_for():
+    GPIO.output([14,15],[1,0])
+    
+def left_rev():
+    GPIO.output([14,15],[0,1])
+def getch():
+    import sys,tty,termios
+    fd=sys.stdin.fileno()
+    old_settings=termios.tcgetattr(fd)
+    try:
+        tty.setraw(sys.stdin.fileno())
+        ch=sys.stdin.read(1)
+    finally:
+        termios.tcsetattr(fd,termios.TCSADRAIN,old_settings)
+    return ch
+
+
+
+
+
+
+
+
+
+    
+GPIO.output(pins,0)    
+while True:
+    print('')
+    x = getch()
+    GPIO.output(pins,0)
+    if x == 'w':
+        go()
+    elif x=='s':
+        rev()
+    elif x=='a':
+        right_for()
+    elif x=='d':
+        left_for()
+    elif x=='e':
+        right_rev()
+    elif x=='q':
+        left_rev()
+    elif x=='x':
+        stop()
+
+    elif x=='c':
+        break
+GPIO.cleanup()
+    
+# go to terminal and type pinout
+
