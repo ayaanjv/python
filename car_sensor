@@ -1,0 +1,117 @@
+import RPi.GPIO as GPIO
+import time
+GPIO.setmode(GPIO.BCM)
+pins=[3,2,14,15]
+GPIO.setup(pins,GPIO.OUT)
+
+##rf=
+##lf=
+##rb=
+##lb=
+a=GPIO.PWM(3,50)
+b=GPIO.PWM(2,50)
+c=GPIO.PWM(14,50)
+d=GPIO.PWM(15,50)
+abcd=[a,b,c,d]
+speed=100
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(17,GPIO.IN)
+GPIO.input(17)
+
+def go():
+    a.start(speed)
+    c.start(speed)
+    b.stop()
+    d.stop()
+def stop():
+    GPIO.output(pins,0)
+    abcd.stop    
+
+def rev():
+    GPIO.output([14,3],0)
+    GPIO.output([15,2],1)
+    d.start(speed)
+    b.start(speed)
+    c.stop()
+    a.stop()
+    
+def right_for():
+    
+    a.start(speed)
+    b.stop()
+    d.stop()
+    c.stop()
+def right_rev():
+    
+    b.start(speed)
+    a.stop()
+    c.stop()
+
+    d.stop()
+def left_for():
+   
+    c.start(speed)
+    d.stop()
+def left_rev():
+    
+    d.start(speed)
+    c.stop()
+def getch():
+    import sys,tty,termios
+    fd=sys.stdin.fileno()
+    old_settings=termios.tcgetattr(fd)
+    try:
+        tty.setraw(sys.stdin.fileno())
+        ch=sys.stdin.read(1)
+    finally:
+        termios.tcsetattr(fd,termios.TCSADRAIN,old_settings)
+    return ch
+
+
+
+
+
+while True:
+    y=GPIO.input(17)
+    print (y)
+    if y==0:
+        rev()
+        time.sleep(0.5)
+        right_rev()
+        time.sleep(0.5)
+    if y==1:
+        go()
+    
+GPIO.output(pins,0)    
+while True:
+    print('')
+    x = getch()
+    GPIO.output(pins,0)
+    a.stop()
+    b.stop()
+    c.stop()
+    d.stop()
+    if x == 'w':
+        go()
+    elif x=='s':
+        rev()
+    elif x=='a':
+        right_for()
+    elif x=='d':
+        left_for()
+    elif x=='e':
+        right_rev()
+    elif x=='q':
+        left_rev()
+    elif x=='x':
+        stop()
+
+    elif x=='c':
+        break
+    
+
+GPIO.cleanup()
+
+    
+# go to terminal and type pinout
+
