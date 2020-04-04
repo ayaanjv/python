@@ -2,9 +2,10 @@ from pygame.locals import*
 import pygame
 import random
 import time
+import copy
 fpsclock=pygame.time.Clock()
 pygame.init()
-screen = pygame.display.set_mode((820,640))
+screen = pygame.display.set_mode((700,500))
 pygame.display.set_caption ('snake')
 red = (255,0,0)
 green = (0,204,0)
@@ -23,9 +24,7 @@ purple = (128, 0, 128)
 silver = (192, 192, 192)
 teal = (0, 128, 128)
 yellow = (255, 255, 0)
-speed=7
-a=random.randint(0,770)
-b=random.randint(0,590)
+speed=25
 x=100
 y=100
 up=0
@@ -42,7 +41,14 @@ rainbow=[red,orange,yellow,green,blue,purple]
 hi=0
 game_end= False
 name=[]
-
+d=[]
+col=random.randint(1,27)
+ro=random.randint(1,19)
+a=col*25
+b=ro*25
+wall=0
+c=random.randint(1,27)
+r=random.randint(1,19)
 def score(msg,x,y,blue):
     fontobj=pygame.font.SysFont('freesans',50)
     msgobj=fontobj.render(msg,False,orange)
@@ -51,7 +57,6 @@ def insrtuctions(msg,x,y,blue):
     fontobj=pygame.font.SysFont('freesans',30)
     msgobj=fontobj.render(msg,False,white)
     screen.blit(msgobj,(x,y))                
-
 
 def Snake():
     global a
@@ -73,11 +78,13 @@ def Snake():
     global hi
     global game_end
     global name
+    global wall
     game_start= True
     while game_start:
         fpsclock.tick(25)
         pygame.display.update()
         screen.fill(olive)
+        
         insrtuctions('Use Up,Down,Left,Right keys to move snake and eat mouse',10,10,white)
         insrtuctions('Use R key to change color of snake',10,110,white)
         insrtuctions("Don't touch the border or you wil die",10,210,white)
@@ -89,20 +96,26 @@ def Snake():
                     break
             
     while True:
-        fpsclock.tick(25)
+        fpsclock.tick(10)
         pygame.display.update()
         screen.fill(olive)
-        
-        SNAKE=pygame.draw.rect(screen,color,(x,y,25,25))
         MOUSE=pygame.draw.rect(screen,silver,(a,b,25,25))
+        SNAKE=pygame.draw.rect(screen,color,(x,y,25,25))
         r=random.choice(rainbow)
-    
+
+
+
         for s in snake:
-            pygame.draw.rect(screen,color,(s[0],s[1],25,25))
+          pygame.draw.rect(screen,color,(s[0],s[1],25,25))
         snake.insert(0,(x,y))
         snake.pop()
-       
-    
+
+        for column in range(0,700,25):
+          pygame.draw.line(screen, white, (column,0),(column,500),1)
+        for row in range(0,500,25):
+          pygame.draw.line(screen, white, (0,row),(700,row),1)
+
+        
         for event in pygame.event.get():
             if event.type==QUIT:
                 pygame.quit()
@@ -112,7 +125,7 @@ def Snake():
                     snake_up=1
                 elif event.key==K_DOWN:
                     snake_up=2
-                if event.key==K_RIGHT:
+                elif event.key==K_RIGHT:
                     snake_up=3
                 elif event.key==K_LEFT:
                     snake_up=4
@@ -173,9 +186,7 @@ def Snake():
                 snake_up=3    
             x=x-left
                     
-        if y<=-30:
-
-
+        if y==-50:
             screen.fill(olive)
             pygame.draw.rect(screen,orange,(x,y,25,25))
             pygame.draw.rect(screen,silver,(a,b,25,25))
@@ -192,8 +203,9 @@ def Snake():
             time.sleep(1)
             screen.fill(green)
             screen = pygame.display.set_mode((900,900))
+            game_start=True
             break
-        if y>=660:
+        if y==525:
             screen.fill(olive)
             pygame.draw.rect(screen,orange,(x,y,25,25))
             pygame.draw.rect(screen,silver,(a,b,25,25))
@@ -210,8 +222,9 @@ def Snake():
             time.sleep(1)
             screen.fill(green)
             screen = pygame.display.set_mode((900,900))
+            game_start=True
             break
-        if x<=-30:
+        if x==-50:
             screen.fill(olive)
             pygame.draw.rect(screen,orange,(x,y,25,25))
             pygame.draw.rect(screen,silver,(a,b,25,25))
@@ -228,8 +241,9 @@ def Snake():
             time.sleep(1)
             screen.fill(green)
             screen = pygame.display.set_mode((900,900))
+            game_start=True
             break
-        if x>=825:
+        if x==725:
             screen.fill(olive)
             pygame.draw.rect(screen,orange,(x,y,25,25))
             pygame.draw.rect(screen,silver,(a,b,25,25))
@@ -246,14 +260,22 @@ def Snake():
             time.sleep(1)
             screen.fill(green)
             screen = pygame.display.set_mode((900,900))
+            game_start=True
             break
         if SNAKE.colliderect(MOUSE):
-            a=random.randint(0,820)
-            b=random.randint(0,640)
+            col=random.randint(1,28)
+            ro=random.randint(1,20)
+            a=col*25
+            b=ro*25
             body=body+25
             point=point+1
             snake.insert(0,(x,y))
-        score('Your Score:',500,-10,blue)            
+            
+            
+        
+
+            
+        score('Your Score:',450,0,blue)            
         score(str(point),770,-10,blue)
 ##        if point>hi:
 ##            hi=point
@@ -333,22 +355,4 @@ def Snake():
                     name.append('y')
                 elif event.key==K_z:
                     name.append('z')
-        
-               
-                
-                elif event.key==K_DELETE:
-                    l=len(name)
-                    l=l-1
-                    name.pop(l)
-                elif event.key==K_BACKSPACE:
-                    l=len(name)
-                    l=l-1
-                    name.pop(l)
-                elif event.key==K_RETURN:
-                    with open('leader','w') as file:
-                        file.write(n)
-                        name=''
-                        game_end = False
-                        screen.fill(black)
-                        break              
-Snake()
+Snake()       
