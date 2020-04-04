@@ -96,7 +96,7 @@ def Snake():
                     break
             
     while True:
-        fpsclock.tick(10)
+        fpsclock.tick(5)
         pygame.display.update()
         screen.fill(olive)
         MOUSE=pygame.draw.rect(screen,silver,(a,b,25,25))
