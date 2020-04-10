@@ -24,3 +24,11 @@ silver = (192, 192, 192)
 teal = (0, 128, 128)
 yellow = (255, 255, 0)
 while True:
+  fpsclock.tick(10)
+  pygame.display.update()
+  screen.fill(olive)
+    for event in pygame.event.get():
+        if event.type==QUIT:
+            pygame.quit()
+            exit()
+        
