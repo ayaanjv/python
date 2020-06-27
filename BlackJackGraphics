@@ -359,7 +359,6 @@ while Casino:
                     place=place-5
                 if event.key==K_RETURN:
                     check=1
-                    bet=[]
                     
                 if len(bet)>0:
                     if event.key==K_BACKSPACE:
@@ -434,9 +433,12 @@ while Casino:
             
             if suit==1:
                 player=random.randint(0,len(clubs)-1)
-                copy_card.append(copy_clubs[player]) 
+                copy_card.append(copy_clubs[player])
 
                 if player==0:
+                     if sum(copy_card)<= 10:
+                         copy_card.pop()
+                         copy_card.append(11)
                      hand2.append('ace;clubs.png')
                 elif player==1:
                      hand2.append('2;clubs.png')
@@ -466,8 +468,11 @@ while Casino:
             elif suit==2:
                 player=random.randint(0,len(hearts)-1)
                 copy_card.append(copy_hearts[player])
-               
+            
                 if player==0:
+                     if sum(copy_card)<= 10:
+                         copy_card.pop()
+                         copy_card.append(11)
                      hand2.append('ace;hearts.png')
                 elif player==1:
                      hand2.append('2;hearts.png')
@@ -498,8 +503,11 @@ while Casino:
             elif suit==3:
                 player=random.randint(0,len(spades)-1)
                 copy_card.append(copy_spades[player])
-                
+
                 if player==0:
+                     if sum(copy_card)<= 10:
+                         copy_card.pop()
+                         copy_card.append(11)
                      hand2.append('ace;spades.png')
                 elif player==1:
                      hand2.append('2;spades.png')
@@ -526,13 +534,15 @@ while Casino:
                 elif player==12:
                      hand2.append('King;spades.png')
                 
-                
-                
             elif suit==4:
                 player=random.randint(0,len(diamonds)-1)
                 copy_card.append(copy_diamonds[player])
 
+                
                 if player==0:
+                     if sum(copy_card)<= 10:
+                         copy_card.pop()
+                         copy_card.append(11)
                      hand2.append('ace;diamonds.png')
                 elif player==1:
                      hand2.append('2;diamonds.png')
@@ -590,7 +600,11 @@ while Casino:
                 comp=random.randint(0,len(clubs)-1)
                 copy_card2.append(copy_clubs[comp])
                 
+                
                 if comp==0:
+                     if sum(copy_card2)<= 10:
+                         copy_card2.pop()
+                         copy_card2.append(11)
                      hand.append('ace;clubs.png')
                 elif comp==1:
                      hand.append('2;clubs.png')
@@ -621,8 +635,11 @@ while Casino:
             elif suit2==2:
                 comp=random.randint(0,len(hearts)-1)
                 copy_card2.append(copy_hearts[comp])
-               
+                
                 if comp==0:
+                     if sum(copy_card2)<= 10:
+                         copy_card2.pop()
+                         copy_card2.append(11)
                      hand.append('ace;hearts.png')
                 elif comp==1:
                      hand.append('2;hearts.png')
@@ -653,8 +670,11 @@ while Casino:
             elif suit2==3:
                 comp=random.randint(0,len(spades)-1)
                 copy_card2.append(copy_spades[comp])
-               
+                
                 if comp==0:
+                     if sum(copy_card2)<= 10:
+                         copy_card2.pop()
+                         copy_card2.append(11)
                      hand.append('ace;spades.png')
                 elif comp==1:
                      hand.append('2;spades.png')
@@ -684,8 +704,11 @@ while Casino:
             elif suit2==4:
                 comp=random.randint(0,len(diamonds)-1)
                 copy_card2.append(copy_diamonds[comp])
-                
+
                 if comp==0:
+                     if sum(copy_card2)<= 10:
+                         copy_card2.pop()
+                         copy_card2.append(11)
                      hand.append('ace;diamonds.png')
                 elif comp==1:
                      hand.append('2;diamonds.png')
@@ -749,26 +772,27 @@ while Casino:
             screen.fill(green)
             
         if turn==0:
-            score(str(copy_card2[0]),310,600,white)
+            score(str(copy_card2[0]),360,600,white)
         else:
-            score(str(sum(copy_card2)),310,600,white)
-            
+            score(str(sum(copy_card2)),360,600,white)
+        
         if show_card==1:
-            time.sleep(1)
-            Bet=1 
+            time.sleep(3)
             hand=[]
             hand2=[]
             card=[]
             copy_card=[]
-            player=0
             card2=[]
+            bet=[]
+            hand=[]
             copy_card2=[]
-            comp=1
             x=[]
             y=[]
+            player=0
             deal=1
             hit=1
-            hand=[]
+            Bet=1
+            comp=1
             button=1 
             compCard=0
             Card=0
@@ -779,7 +803,7 @@ while Casino:
             win=0
 
         if push==1:
-            time.sleep(1)
+            time.sleep(3)
             hand=[]
             hand2=[]
             card=[]
@@ -803,7 +827,7 @@ while Casino:
             push=0
             
         if sum(copy_card)==21:
-            score('Blackjack',500,300,white)
+            score('Blackjack',350,500,white)
             show_card=1
             button=0
             turn=1
@@ -811,7 +835,7 @@ while Casino:
             Played=Played+1
             handsWon=handsWon+1
         elif win==3:
-            score('Push',500,300,white)
+            score('Push',400,500,white)
             push=1
             button=0
             Played=Played+1
@@ -880,10 +904,10 @@ while Casino:
         Stand()
         Hit()
     
-        score('Comp:',200,600,white)
+        score('Comp:',250,600,white)
 
-        score('You:',400,600,white)
-        score(str(sum(copy_card)),480,600,white)
+        score('You:',450,600,white)
+        score(str(sum(copy_card)),530,600,white)
 
 
         if money>high:
@@ -897,7 +921,7 @@ while game_over:
     for event in pygame.event.get():
         if event.type==QUIT:
             pygame.quit()
-            exit()
+            exit()        
 
     screen.fill(green)
 
@@ -907,10 +931,10 @@ while game_over:
     else:
         over('You Won',250,250,blue)
        
-    score('Money Earned:......',250,400,blue)
-    score(str(money-OGB),550,400,blue)
-    score('Hands Won:...........',250,450,blue)
-    score(str(handsWon),550,450,blue)
-    score('Highest Bank:........',250,500,blue)
-    score(str(high),550,500,blue)
-## (Note to self) add ace rules.
+    score('Money Earned:......',200,400,blue)
+    score(str(money-OGB),505,400,blue)
+    score('Hands Won:...........',200,450,blue)
+    score(str(handsWon),505,450,blue)
+    score('Highest Bank:........',200,500,blue)
+    score(str(high),505,500,blue)
+
