@@ -27,7 +27,7 @@ while True:
   fpsclock.tick(10)
   pygame.display.update()
   screen.fill(olive)
-    for event in pygame.event.get():
+  for event in pygame.event.get():
         if event.type==QUIT:
             pygame.quit()
             exit()
